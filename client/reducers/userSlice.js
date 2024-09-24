@@ -26,4 +26,5 @@ export const userSlice = createSlice({
 });
 
 export const { addPlant, setUsername, setLoggedIn } = userSlice.actions;
+export const selectUsername = (state) => state.user.username;
 export default userSlice.reducer;
