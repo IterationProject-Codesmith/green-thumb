@@ -34,13 +34,23 @@ plantController.addFavorites = async (req, res, next) => {
 };
 
 plantController.seeFavorites = async (req, res, next) => {
+  const {  userId } = req.body;
+  try{ 
+    const user = await Favs.findOne(userId)
+    if (user !== null) {
+      res.locals.favorites = user
+      return next();
+    }
+  }
+  catch (error){
+    return next(error)
+  }
+};
   
 }
 
 plantController.delFavorites = async (req, res, next) => {
 
 }
-
-
 
 module.exports = plantController;
