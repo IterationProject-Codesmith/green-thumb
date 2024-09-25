@@ -33,6 +33,14 @@ const FavoritePlantCard = () => {
       ) : (
         <p>Care level info not available.</p>
       )}
+      {props.userNote ? (
+        <p>
+          <em>User notes: </em>
+          {props.userNote}
+        </p>
+      ) : (
+        <p>Care level info not available.</p>
+      )}
     </div>
   </div>;
 };

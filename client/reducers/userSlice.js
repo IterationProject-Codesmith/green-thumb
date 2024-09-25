@@ -32,6 +32,22 @@ export const userSlice = createSlice({
         console.log(`user must be logged in to add a favorite plant`);
       }
     },
+
+    setFavoriteNote: (state, action) => {
+      if (state.isLoggedIn === true) {
+        const note = action.payload.note;
+        const plantWithNote = action.payload.plantId;
+        const userId = action.payload.userId;
+        const favorites = state.favoritePlants;
+        for(const favorite in favorites){
+
+        }
+
+        state.favoritePlants[plant.common_name]. = note;
+      } else {
+        console.log(`user must be logged in to add a favorite plant`);
+      }
+    }
   },
 });
 
@@ -60,6 +76,19 @@ export const saveFavoritetoDatabase = createAsyncThunk(
   }
 );
 //async thunk = a func that accepts an action type string and a payload creator cb(like a fetch request), and returns a promise
+
+export const saveNotetoDatabase = createAsyncThunk(
+  'notes/createNote',
+  async (note, userId) => {
+    const response = await fetch('/plants/note', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({userId, note }),
+    }
+  )}
+);
 
 export const { addPlant, setUsername, setLoggedIn, addPlantToFavorites } =
   userSlice.actions;
