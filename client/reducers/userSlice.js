@@ -24,43 +24,44 @@ export const userSlice = createSlice({
       }
     },
     //reducer to send to database
-    addPlantToFavorites: (state, action) =>{
-      if (state.isLoggedIn === true){
+    addPlantToFavorites: (state, action) => {
+      if (state.isLoggedIn === true) {
         const plant = action.payload;
         state.favoritePlants[plant.common_name] = plant;
       } else {
-        console.log(`user must be logged in to add a favorite plant`)
+        console.log(`user must be logged in to add a favorite plant`);
       }
-    }
+    },
   },
 });
+
 export const saveFavoritetoDatabase = createAsyncThunk(
   `database/favorites?`,
   async (plantandUserInfo) => {
-    const details = await fetch(`database/favorites`, {
+    const details = await fetch(`/plants`, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         userId: plantandUserInfo.userId,
         common_name: plantandUserInfo.common_name,
         cycle: plantandUserInfo.cycle,
         watering: plantandUserInfo.watering,
         sunlight: plantandUserInfo.sunlight,
-        image_url: plantandUserInfo.image_url
+        image_url: plantandUserInfo.image_url,
       }),
     });
-     if (!details.ok) {
-       throw new Error("Cannot add plant to favorites");
-     }
-     const favorite = details.json();
-     return favorite;
+    if (!details.ok) {
+      throw new Error('Cannot add plant to favorites');
+    }
+    const favorite = details.json();
+    return favorite;
   }
-
-)
+);
 //async thunk = a func that accepts an action type string and a payload creator cb(like a fetch request), and returns a promise
 
-export const { addPlant, setUsername, setLoggedIn, addPlantToFavorites } = userSlice.actions;
+export const { addPlant, setUsername, setLoggedIn, addPlantToFavorites } =
+  userSlice.actions;
 export const selectUsername = (state) => state.user.username;
 export default userSlice.reducer;

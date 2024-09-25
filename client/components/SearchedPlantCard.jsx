@@ -1,5 +1,5 @@
 import React from 'react';
-import { addPlantToFavorites, selectUsername } from '../reducers/userSlice';
+import { addPlantToFavorites, selectUsername, saveFavoritetoDatabase } from '../reducers/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 const SearchedPlantCard = (props) => {
