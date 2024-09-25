@@ -3,6 +3,7 @@ const path = require('path'); //requires in path for better path's
 //body-parser
 const app = express(); //makes a express app
 const mongoose = require('mongoose'); //requires in mongoose
+require('dotenv').config();
 const userController = require(path.join(
   __dirname,
   './Controllers/userController.js'
@@ -12,6 +13,13 @@ const plantController = require(path.join(
   './Controllers/plantController.js'
 ));
 
+// mongoose.connect(process.env.MONGO_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// })
+// .then(() => console.log('Connected to MongoDB'))
+// .catch((err) => console.error('Could not connect to MongoDB...', err));
+
 mongoose
   .connect('mongodb+srv://QianQian97:1c5U7XPUU8Tqamtg@qianqian.aqoqk.mongodb.net/cheng')
   .then((result) => {
@@ -20,6 +28,7 @@ mongoose
   .catch((err) => {
     console.log('Failed to connect to the Mongoose DB', err);
   });
+
 
 //have case's to handle json
 app.use(express.json());

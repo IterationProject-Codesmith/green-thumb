@@ -9,7 +9,6 @@ const SignUpForm = () => {
   const [isUsernameTaken, setIsUsernameTaken] = useState(false);
   const [fieldsFilled, setFieldsFilled] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false)
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // handle backend logic here
@@ -25,7 +24,6 @@ const SignUpForm = () => {
       if (data.success) navigate('/');
       else if (data.message === 'User already exists')  setIsUsernameTaken(true);
       else if (data.message === 'Both username and password fields are required') setFieldsFilled(false)
-
     })
     .catch((error) => {
       console.log('error', error);

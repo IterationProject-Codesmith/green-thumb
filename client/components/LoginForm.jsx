@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setLoggedIn, setUser } from '../reducers/userSlice';
 import { useDispatch } from 'react-redux';
-
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -11,14 +10,12 @@ const LoginForm = () => {
   const [fieldsFilled, setFieldsFilled] = useState(true)
   const [errorMessage, setErrorMessage] = useState(false)
   const dispatch = useDispatch()
-
-
   const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = {username, password};
-  
+ 
     // handle backend logic here
     fetch('api/login', {
       method: 'POST',
@@ -29,7 +26,6 @@ const LoginForm = () => {
     })
     .then(response => response.json())
     .then(data => {
-
       if (data.success) {
         dispatch(setLoggedIn())
         dispatch(setUser(username))
@@ -46,8 +42,6 @@ const LoginForm = () => {
       setErrorMessage('An unexpected Error occured');
     })
   };
-  
-
   return (
     <div id='login-form-container'>
       <form
@@ -67,6 +61,7 @@ const LoginForm = () => {
         <br></br>
         <label htmlFor='password'>Password:</label>
         <br></br>
+
         <input 
           type='password' 
           id='password' 
@@ -75,9 +70,10 @@ const LoginForm = () => {
           onChange = {(e) => setPassword(e.target.value)}
         ></input>
         <br></br>
-        <input 
-        type='submit' 
+        <input
+        type='submit'
         id='login-button'
+        value='Login'
         />
       </form>
       {!passwordCorrect && <p>Username or password is incorrect</p>}
@@ -86,6 +82,5 @@ const LoginForm = () => {
     </div>
   );
 };
-
 export default LoginForm;
 
