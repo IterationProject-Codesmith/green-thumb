@@ -23,6 +23,24 @@ export const favoritesSlice = createSlice({
   },
 });
 
+
+
+
+
+export const fetchFavorites = createAsyncThunk(
+  'fetchingfavs', 
+  async (username) => {
+    const favorites = await fetch(`/plants/:${username}`, {
+      headers: {"content-Type": "application/json"},
+    });
+  
+  if (!favorites.ok) {
+    throw new Error("cannot fetch favorites")
+  } const favoritePage = await favorites.json();
+  return favoritePage
+}
+)
+
 export const {
   toggleFavorite,
   setNote
