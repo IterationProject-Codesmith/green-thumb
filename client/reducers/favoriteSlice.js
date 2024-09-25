@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-
 const initialState = {
   favPlants: [],
   status: 'idle'
@@ -9,6 +8,7 @@ const initialState = {
 
 
 export const fetchFavorites = createAsyncThunk(
+  'fetchingfavs',
   "fetchingfavs",
   async (username) => {
     const favorites = await fetch(`/api/plants/${username}`, {
@@ -33,7 +33,7 @@ export const favoritesSlice = createSlice({
       state.currentResults[currId].isFavorite ? state.currentResults[currId].isFavorite = false : state.currentResults[currId].isFavorite = true;
 
     },
-   
+
     setNote: (state, action) => {
       const currId = action.payload.id;
       state.currentResults[currId].userNote = action.payload.userNote;

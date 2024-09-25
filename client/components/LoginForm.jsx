@@ -15,7 +15,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     const formData = {username, password};
- 
+
     // handle backend logic here
     fetch('api/login', {
       method: 'POST',
@@ -49,27 +49,29 @@ const LoginForm = () => {
         className='auth-form'
         onSubmit={(e) => handleSubmit(e)}
       >
-        <label htmlFor='username'>Username:</label>
-        <br></br>
-        <input 
-          type='text' 
-          id='username' 
+        <p>
+        <label className='loginLabel' htmlFor='username'>Username:</label>
+
+        <input
+          type='text'
+          id='username'
           name='username'
           value = {username}
           onChange = {(e) => setUsername(e.target.value)}
         ></input>
+        </p>
         <br></br>
-        <label htmlFor='password'>Password:</label>
-        <br></br>
+        <p>
+        <label className='loginLabel' htmlFor='password'>Password:</label>
 
-        <input 
-          type='password' 
-          id='password' 
+        <input
+          type='password'
+          id='password'
           name='password'
           value = {password}
           onChange = {(e) => setPassword(e.target.value)}
         ></input>
-        <br></br>
+        </p>
         <input
         type='submit'
         id='login-button'

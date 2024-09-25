@@ -65,6 +65,7 @@ const SearchedPlantCard = (props) => {
             <p></p>
           )}
         </div>
+        <input type='text' className='commentInput' onChange={(e) => dispatch(commentInputUpdateOnChange(e.target.value))}></input>
         <button onClick={addToFavorites} id="favorite">Add to favorites</button>
       </div>
     </>

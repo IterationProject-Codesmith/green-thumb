@@ -10,8 +10,10 @@ import DashBoard from './containers/DashBoard';
 const App = () => {
   return (
     <BrowserRouter>
-      <Link to='/'>Login</Link>
-      <Link to='/signUp'>Sign Up</Link>
+      <section id=''>
+        <Link to='/'>Login</Link>
+        <Link to='/signUp'>Sign Up</Link>
+      </section>
       {/* <Link to='/dashboard/search'>Dashboard Search</Link> */}
       <Routes>
         <Route path='/' element={<LoginPage />}></Route>
