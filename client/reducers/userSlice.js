@@ -28,10 +28,7 @@ export const userSlice = createSlice({
       // if (state.isLoggedIn === true) {
         const plant = action.payload;
         state.favoritePlants[plant.common_name] = plant;
-        // console.log(state)
-        // console.log(state.user)
-        // console.log(state.user.favoritePlants)
-        // console.log(state.favoritePlants)
+      
       // } else {
         // console.log(`user must be logged in to add a favorite plant`);
       // }
@@ -40,7 +37,7 @@ export const userSlice = createSlice({
 });
 
 export const saveFavoritetoDatabase = createAsyncThunk(
-  `database/favorites?`,
+  `database/favorites`,
   async (plantandUserInfo) => {
     const details = await fetch(`/api/plants`, {
       headers: {

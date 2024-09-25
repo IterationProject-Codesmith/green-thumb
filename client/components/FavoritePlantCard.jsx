@@ -31,7 +31,7 @@ const FavoritePlantCard = () => {
           {props.care_level}
         </p>
       ) : (
-        <p>Care level info not available.</p>
+        <p></p>
       )}
     </div>
   </div>;
