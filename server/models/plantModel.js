@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
 
 const plant = mongoose.Schema({
+  username: { type: String },
   plantId: { type: Number, required: true, unique: true },
   commonName: { type: String, required: true },
-  watering: { type: String,},
+  watering: { type: String},
   // frontend should be aware that this is an object and will have to create a deep clone
-  wateringGeneralBenchMark: { type: Object},
+  // wateringGeneralBenchMark: { type: Object},
   sunlight: { type: Array},
-  careGuide: { type: String},
+  // careGuide: { type: String},
   careLevel: { type: String},
-  poisonousToPet: { type: Boolean},
-  poisonousToHuman: { type: Boolean},
+  // poisonousToPet: { type: Boolean},
+  // poisonousToHuman: { type: Boolean},
   imageUrl: { type: String},
-  description: { type: String},
-  indoor: { type: Boolean}
+  // description: { type: String},
+  // indoor: { type: Boolean}
+  comments: { type: String },
 });
 
 

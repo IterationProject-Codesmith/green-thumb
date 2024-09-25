@@ -1,6 +1,6 @@
 const plantController = {};
 
-const apiKey = 'sk-co6c66ee1213c52f86927';
+const apiKey = 'sk-tRSR66f2e488db5c06983';
 
 plantController.fetchSpecies = async (req, res, next) => {
   const { search } = req.query;
