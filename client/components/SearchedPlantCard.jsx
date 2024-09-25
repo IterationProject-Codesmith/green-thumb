@@ -6,25 +6,25 @@ const SearchedPlantCard = (props) => {
   const dispatch = useDispatch();
   const username = useSelector(selectUsername);
 
-//useSelector 
-//dispatch to send this info with username to reducer
-//send info to database - username, plant info (common_name, cycle, watering, sunlight,image url)
+  //useSelector
+  //dispatch to send this info with username to reducer
+  //send info to database - username, plant info (common_name, cycle, watering, sunlight,image url)
 
-const addToFavorites = (e) => {
-  e.preventDefault();
+  const addToFavorites = (e) => {
+    e.preventDefault();
     const plantandUserInfo = {
-    userId : username,
-    common_name: props.common_name,
-    cycle: props.cycle,
-    watering: props.watering,
-    sunlight: props.sunlight,
-    image_url: props.default_image ? props.default_image.small_url : ''
-  };
+      userId: username,
+      common_name: props.common_name,
+      cycle: props.cycle,
+      watering: props.watering,
+      sunlight: props.sunlight,
+      image_url: props.default_image ? props.default_image.small_url : ''
+    };
 
-  dispatch(addPlantToFavorites(plantandUserInfo));
-  dispatch(saveFavoritetoDatabase(plantandUserInfo));
-  
-}
+    dispatch(addPlantToFavorites(plantandUserInfo));
+    dispatch(saveFavoritetoDatabase(plantandUserInfo));
+
+  };
 
   return (
     <>

@@ -1,13 +1,13 @@
 import React from 'react';
 
 const FavoritePlantCard = () => {
-  <div className='searched-plant-card'>
+  <div className='favorite-plant-card'>
     {props.default_image ? (
       <img src={props.default_image.small_url}></img>
     ) : (
       <img alt={props.common_name}></img>
     )}
-    <div className='searched-plant-card-content'>
+    <div className='favorite-plant-card-content'>
       <h3>{props.common_name}</h3>
       {/* <p>
         <em>Type: </em>

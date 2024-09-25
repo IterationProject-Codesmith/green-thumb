@@ -34,9 +34,6 @@ export const userSlice = createSlice({
     }
   },
 });
-
-
-
 export const saveFavoritetoDatabase = createAsyncThunk(
   `database/favorites?`,
   async (plantandUserInfo) => {
@@ -60,7 +57,7 @@ export const saveFavoritetoDatabase = createAsyncThunk(
      const favorite = details.json();
      return favorite;
   }
- 
+
 )
 //async thunk = a func that accepts an action type string and a payload creator cb(like a fetch request), and returns a promise
 
