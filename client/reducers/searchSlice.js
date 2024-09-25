@@ -35,4 +35,5 @@ export const {
   addCachedSearches,
   addAllPreviousSearches,
 } = searchSlice.actions;
+
 export default searchSlice.reducer;
