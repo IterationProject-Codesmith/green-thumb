@@ -1,5 +1,4 @@
-const Favs = require('../server/models/favoritePlantModel.js')
-
+const Favs = require ('../models/favoritePlantModel')
 
 const plantController = {};
 
@@ -24,7 +23,9 @@ plantController.addFavorites = async (req, res, next) => {
   try {
     const user = await Favs.findOne(userId)
     if (user !== null) {
-      const newFav = await Favs.create({userId, common_name: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url});
+      const newFav = await Favs.create({
+        userId, common_name: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url
+      });
       res.locals.favorites = newFav
       return next();
     } 
@@ -34,7 +35,7 @@ plantController.addFavorites = async (req, res, next) => {
 };
 
 plantController.seeFavorites = async (req, res, next) => {
-  const {  userId } = req.body;
+  const { userId } = req.body;
   try{ 
     const user = await Favs.findOne(userId)
     if (user !== null) {
@@ -47,7 +48,7 @@ plantController.seeFavorites = async (req, res, next) => {
   }
 };
   
-}
+
 
 plantController.delFavorites = async (req, res, next) => {
 

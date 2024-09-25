@@ -48,7 +48,7 @@ app.post('/api/login', userController.verifyUser, (req, res) => {
 
 app.get('/api/plants', plantController.seeFavorites, (req, res) => {
   res.sendStatus(200)
-
+})
 app.get('/api/plants', (req, res) => {
 
 });
