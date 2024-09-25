@@ -13,7 +13,7 @@ const plantController = require(path.join(
 ));
 
 mongoose
-  .connect('mongodb://127.0.0.1:27017/green-thumb')
+  .connect('mongodb+srv://QianQian97:1c5U7XPUU8Tqamtg@qianqian.aqoqk.mongodb.net/cheng')
   .then((result) => {
     //console.log('Mongoose DB connected', result);
   })
@@ -27,17 +27,22 @@ app.use(express.json());
 //router handlers
 //create user document in user model
 app.post('/api/signup', userController.createUser, (req, res) => {
-  res.sendStatus(200);
+  res.status(200).json({success: true, message: 'successfully signed up'});
 });
 //find matching username and verifying password, potentially creating a session
-app.get('/api/login', userController.verifyUser, (req, res) => {
-  res.sendStatus(200);
+app.post('/api/login', userController.verifyUser, (req, res) => {
+  console.log("login in callback")
+  res.status(200).json({success: true, message: 'successfully logged in'});
 });
 
 //fetch user's saved favorites
-app.get('/api/plants', (req, res) => {});
+app.get('/api/plants', (req, res) => {
+});
 //saving plant to user's favorite's     plantController.savePlant - make sure the  plant isn't saved userController.addPlant adding the plantid to the user's savedPlants attribute
-app.post('/api/plants', (req, res) => {});
+app.post('/api/plants', plantController.addFavorites, (req, res) => {
+  res.sendStatus(200)
+});
+
 
 //fetching all plants that make search querry
 app.get('/api/species', plantController.fetchSpecies, (req, res) => {
