@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-
 // const initialState = {
 //   favPlants: {},
 // };
@@ -24,24 +23,21 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 //   },
 // });
 
-
-
-
-
 export const fetchFavorites = createAsyncThunk(
-  'fetchingfavs', 
+  'fetchingfavs',
   async (username) => {
     const favorites = await fetch(`/api/plants/${username}`, {
-      headers: {"content-Type": "application/json"},
+      headers: { 'content-Type': 'application/json' },
     });
-  
-  if (!favorites.ok) {
-    throw new Error("cannot fetch favorites")
-  } const favoritePage = await favorites.json();
-  console.log('fav', favoritePage)
-  return favoritePage
-}
-)
+
+    if (!favorites.ok) {
+      throw new Error('cannot fetch favorites');
+    }
+    const favoritePage = await favorites.json();
+    console.log('fav', favoritePage);
+    return favoritePage;
+  }
+);
 
 // export const {
 //   toggleFavorite,
