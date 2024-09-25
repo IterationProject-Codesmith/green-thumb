@@ -1,14 +1,30 @@
 import React from 'react';
-import { selectUsername } from '../reducers/userSlice';
-import { useSelector } from 'react-redux';
+import { addPlantToFavorites, selectUsername } from '../reducers/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 const SearchedPlantCard = (props) => {
-  
-const username = useSelector(selectUsername)
+  const dispatch = useDispatch();
+  const username = useSelector(selectUsername);
 
 //useSelector 
+//dispatch to send this info with username to reducer
 //send info to database - username, plant info (common_name, cycle, watering, sunlight,image url)
 
+const addToFavorites = (e) => {
+  e.preventDefault();
+    const plantandUserInfo = {
+    userId : username,
+    common_name: props.common_name,
+    cycle: props.cycle,
+    watering: props.watering,
+    sunlight: props.sunlight,
+    image_url: props.default_image ? props.default_image.small_url : ''
+  };
+
+  dispatch(addPlantToFavorites(plantandUserInfo));
+  dispatch(saveFavoritetoDatabase(plantandUserInfo));
+  
+}
 
   return (
     <>
@@ -42,11 +58,11 @@ const username = useSelector(selectUsername)
               {props.care_level}
             </p>
           ) : (
-            //have logic to see if its there, maybe change in state?
+            //have logic to see if its there
             <p></p>
           )}
         </div>
-        <button onclick={addToFavorites} id="favorite">Add to favorites</button>
+        <button onClick={addToFavorites} id="favorite">Add to favorites</button>
       </div>
     </>
   );
