@@ -1,8 +1,14 @@
 import React from 'react'
+import FavoritePlantsContainer from '../containers/FavoritePlantsContainer';
 
 const FavoritesPage = () => {
   return (
-    <div>FavoritesPage</div>
+    <>
+      <h1 className='container'>Favorite Plants</h1>
+      <section>
+        <FavoritePlantsContainer />
+      </section>
+    </>
   )
 }
 
