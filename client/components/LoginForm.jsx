@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setLoggedIn, setUser } from '../reducers/userSlice';
+import { useDispatch } from 'react-redux';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -8,7 +10,7 @@ const LoginForm = () => {
   const [passwordCorrect, setPasswordCorrect] = useState(true);
   const [fieldsFilled, setFieldsFilled] = useState(true)
   const [errorMessage, setErrorMessage] = useState(false)
-  
+  const dispatch = useDispatch()
 
   const navigate = useNavigate()
   const handleSubmit = (e) => {
@@ -26,7 +28,12 @@ const LoginForm = () => {
     })
     .then(response => response.json())
     .then(data => {
-      if (data.success) navigate('/dashboard/search')
+      if (data.success) {
+        dispatch(setLoggedIn())
+        dispatch(setUser(username))
+        navigate('/dashboard/search')
+        // console.log(state.users.isLoggedIn)
+      }
       else if (data.message === 'Username or Password was incorrect') setPasswordCorrect(false)
       else if (data.message === 'both username and password fields are required') setFieldsFilled(false)
       else setErrorMessage(true);
