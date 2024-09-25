@@ -2,22 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 const SignUpForm = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('')
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const username = document.getElementById('username').value;
-    console.log(username);
-
-    const password = document.getElementById('password').value;
-    console.log(password);
-
-    console.log(
-      `signing up with username: ${username} and password: ${password}`
-    );
-    console.log('hitting here');
     // handle backend logic here
     fetch('api/signup', {
       method: 'POST',
@@ -25,11 +16,11 @@ const SignUpForm = () => {
         Accept: 'application.json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({username: username, password: password})
+      body: JSON.stringify({username, password})
     })
     .then(data => {
       console.log(data);
-      navigate('/dashboard/search');
+      navigate('/');
     })
     .catch((error) => {
       console.log('error', error);
@@ -45,11 +36,23 @@ const SignUpForm = () => {
       >
         <label htmlFor='username'>Username:</label>
         <br></br>
-        <input type='text' id='username' name='username'></input>
+        <input 
+          type='text' 
+          id='username' 
+          name='username'
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          ></input>
         <br></br>
         <label htmlFor='password'>Password:</label>
         <br></br>
-        <input type='password' id='password' name='password'></input>
+        <input 
+          type='password' 
+          id='password' 
+          name='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        ></input>
         <br></br>
         <input type='submit' value='Sign up' id='signUp-button' />
       </form>
