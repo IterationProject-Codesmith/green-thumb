@@ -30,12 +30,9 @@ export const userSlice = createSlice({
     //reducer to send to database
     addPlantToFavorites: (state, action) => {
       // if (state.isLoggedIn === true) {
-      const plant = action.payload;
-      state.favoritePlants[plant.common_name] = plant;
-      // console.log(state)
-      // console.log(state.user)
-      // console.log(state.user.favoritePlants)
-      // console.log(state.favoritePlants)
+        const plant = action.payload;
+        state.favoritePlants[plant.common_name] = plant;
+
       // } else {
       // console.log(`user must be logged in to add a favorite plant`);
       // }
@@ -60,7 +57,7 @@ export const userSlice = createSlice({
 });
 
 export const saveFavoritetoDatabase = createAsyncThunk(
-  `database/favorites?`,
+  `database/favorites`,
   async (plantandUserInfo) => {
     const details = await fetch(`/api/plants`, {
       headers: {

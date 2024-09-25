@@ -26,7 +26,7 @@ const SearchedPlantCard = (props) => {
 
     dispatch(addPlantToFavorites(plantandUserInfo));
     dispatch(saveFavoritetoDatabase(plantandUserInfo));
-    // console.log(plantandUserInfo)
+    console.log(plantandUserInfo)
   };
 
   return (
