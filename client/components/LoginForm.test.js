@@ -4,13 +4,29 @@ import { BrowserRouter } from 'react-router-dom';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import configureMockStore from 'redux-mock-store';
 
+const mockStore = configureMockStore([]);
 describe('LoginForm', () => {
+  let store;
+  beforeEach(() => {
+    store = mockStore({
+      user: {
+        username: null,
+        isLoggedIn: false,
+        favoritePlants: {},
+        favoriteSearch: '',
+      }
+    })
+  });
   it('renders login form', () =>{
     render(
-      <BrowserRouter>
+      <Provider store={store}>
+       <BrowserRouter>
        <LoginForm/>
-      </BrowserRouter>
+       </BrowserRouter>
+      </Provider>
     );
    expect(screen.getByLabelText('Username:')).toBeInTheDocument();
    expect(screen.getByLabelText('Password:')).toBeInTheDocument();
@@ -24,9 +40,11 @@ describe('LoginForm', () => {
     );
     global.fetch = mockFetch;
     render(
-      <BrowserRouter>
+      <Provider store={store}>
+       <BrowserRouter>
        <LoginForm/>
-      </BrowserRouter>
+       </BrowserRouter>
+      </Provider>
     );
     await userEvent.type(screen.getByLabelText('Username:'), 'testName');
     await userEvent.type(screen.getByLabelText('Password:'), 'testPassword');
