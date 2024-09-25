@@ -6,6 +6,8 @@ const SearchedPlantCard = (props) => {
   const dispatch = useDispatch();
   const username = useSelector(selectUsername);
 
+  // console.log(username)
+
   //useSelector
   //dispatch to send this info with username to reducer
   //send info to database - username, plant info (common_name, cycle, watering, sunlight,image url)
@@ -14,6 +16,7 @@ const SearchedPlantCard = (props) => {
     e.preventDefault();
     const plantandUserInfo = {
       userId: username,
+      id: props.id,
       common_name: props.common_name,
       cycle: props.cycle,
       watering: props.watering,
@@ -23,7 +26,7 @@ const SearchedPlantCard = (props) => {
 
     dispatch(addPlantToFavorites(plantandUserInfo));
     dispatch(saveFavoritetoDatabase(plantandUserInfo));
-
+    // console.log(plantandUserInfo)
   };
 
   return (

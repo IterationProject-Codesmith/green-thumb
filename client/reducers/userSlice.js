@@ -13,7 +13,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addPlant: (state) => {},
-    setUsername: (state, action) => {
+    setUser: (state, action) => {
       state.username = action.payload;
     },
     setLoggedIn: (state) => {
@@ -25,12 +25,16 @@ export const userSlice = createSlice({
     },
     //reducer to send to database
     addPlantToFavorites: (state, action) => {
-      if (state.isLoggedIn === true) {
+      // if (state.isLoggedIn === true) {
         const plant = action.payload;
         state.favoritePlants[plant.common_name] = plant;
-      } else {
-        console.log(`user must be logged in to add a favorite plant`);
-      }
+        // console.log(state)
+        // console.log(state.user)
+        // console.log(state.user.favoritePlants)
+        // console.log(state.favoritePlants)
+      // } else {
+        // console.log(`user must be logged in to add a favorite plant`);
+      // }
     },
 
     setFavoriteNote: (state, action) => {
@@ -54,13 +58,14 @@ export const userSlice = createSlice({
 export const saveFavoritetoDatabase = createAsyncThunk(
   `database/favorites?`,
   async (plantandUserInfo) => {
-    const details = await fetch(`/plants`, {
+    const details = await fetch(`/api/plants`, {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify({
         userId: plantandUserInfo.userId,
+        id: plantandUserInfo.id,
         common_name: plantandUserInfo.common_name,
         cycle: plantandUserInfo.cycle,
         watering: plantandUserInfo.watering,
@@ -71,7 +76,7 @@ export const saveFavoritetoDatabase = createAsyncThunk(
     if (!details.ok) {
       throw new Error('Cannot add plant to favorites');
     }
-    const favorite = details.json();
+    const favorite = await details.json();
     return favorite;
   }
 );
@@ -90,7 +95,7 @@ export const saveNotetoDatabase = createAsyncThunk(
   )}
 );
 
-export const { addPlant, setUsername, setLoggedIn, addPlantToFavorites } =
+export const { addPlant, setUser, setLoggedIn, addPlantToFavorites } =
   userSlice.actions;
 export const selectUsername = (state) => state.user.username;
 export default userSlice.reducer;
