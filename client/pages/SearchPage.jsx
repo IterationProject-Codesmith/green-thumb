@@ -42,7 +42,7 @@ const SearchPage = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         dispatch(setCurrentResults(data));
         dispatch(addCachedSearches());
       });

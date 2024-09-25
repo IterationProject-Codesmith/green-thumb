@@ -42,13 +42,14 @@ export const userSlice = createSlice({
 export const saveFavoritetoDatabase = createAsyncThunk(
   `database/favorites?`,
   async (plantandUserInfo) => {
-    const details = await fetch(`/plants`, {
+    const details = await fetch(`/api/plants`, {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify({
         userId: plantandUserInfo.userId,
+        id: plantandUserInfo.id,
         common_name: plantandUserInfo.common_name,
         cycle: plantandUserInfo.cycle,
         watering: plantandUserInfo.watering,
@@ -59,7 +60,7 @@ export const saveFavoritetoDatabase = createAsyncThunk(
     if (!details.ok) {
       throw new Error('Cannot add plant to favorites');
     }
-    const favorite = details.json();
+    const favorite = await details.json();
     return favorite;
   }
 );

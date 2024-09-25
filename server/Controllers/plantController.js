@@ -1,5 +1,4 @@
-const Favs = require('../server/models/favoritePlantModel.js')
-
+const Favs = require ('../models/favoritePlantModel')
 
 const plantController = {};
 
@@ -20,23 +19,29 @@ plantController.fetchSpecies = async (req, res, next) => {
 };
 
 plantController.addFavorites = async (req, res, next) => {
-  const {  userId, common_name, cycle, watering, sunlight, image_url } = req.body;
+  console.log('1')
+  const {  userId, common_name, cycle, watering, sunlight, image_url, id } = req.body;
+
+  console.log('reqbody', req.body)
   try {
-    const user = await Favs.findOne(userId)
-    if (user !== null) {
-      const newFav = await Favs.create({userId, common_name: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url});
+    const user = await Favs.findOne({userId})
+    console.log('2')
+      const newFav = await Favs.create({
+        userId: userId, commonName: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url, plantId: id
+      });
+      console.log(newFav);
       res.locals.favorites = newFav
+      console.log('favorites', res.locals.favorites)
       return next();
-    } 
   }catch (error){
     return next(error)
   }
 };
 
 plantController.seeFavorites = async (req, res, next) => {
-  const {  userId } = req.body;
+  const { username } = req.params;
   try{ 
-    const user = await Favs.findOne(userId)
+    const user = await Favs.findOne(username)
     if (user !== null) {
       res.locals.favorites = user
       return next();
@@ -47,7 +52,7 @@ plantController.seeFavorites = async (req, res, next) => {
   }
 };
   
-}
+
 
 plantController.delFavorites = async (req, res, next) => {
 
