@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const plant = mongoose.Schema({
+
   username: { type: String },
+
+  // username: { type: String },
   plantId: { type: Number, required: true, unique: true },
   commonName: { type: String, required: true },
   watering: { type: String},
@@ -15,7 +18,10 @@ const plant = mongoose.Schema({
   imageUrl: { type: String},
   // description: { type: String},
   // indoor: { type: Boolean}
+
   comments: { type: String },
+  // comments: { type: String },
+
 });
 
 

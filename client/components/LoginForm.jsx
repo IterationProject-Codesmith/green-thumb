@@ -12,6 +12,7 @@ const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState(false)
   const dispatch = useDispatch()
 
+
   const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +29,7 @@ const LoginForm = () => {
     })
     .then(response => response.json())
     .then(data => {
+
       if (data.success) {
         dispatch(setLoggedIn())
         dispatch(setUser(username))

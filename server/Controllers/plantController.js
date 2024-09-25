@@ -1,5 +1,6 @@
 const Favs = require('../server/models/favoritePlantModel.js')
 
+
 const plantController = {};
 
 const apiKey = 'sk-tRSR66f2e488db5c06983';
@@ -45,8 +46,11 @@ plantController.seeFavorites = async (req, res, next) => {
     return next(error)
   }
 };
+  
+}
 
 plantController.delFavorites = async (req, res, next) => {
 
 }
+
 module.exports = plantController;
