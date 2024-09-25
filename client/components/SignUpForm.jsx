@@ -6,24 +6,28 @@ const SignUpForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('')
-
+  const [isUsernameTaken, setIsUsernameTaken] = useState(false);
+  const [fieldsFilled, setFieldsFilled] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(false)
   const handleSubmit = (e) => {
     e.preventDefault();
     // handle backend logic here
     fetch('api/signup', {
       method: 'POST',
       headers: {
-        Accept: 'application.json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({username, password})
     })
+    .then(response => response.json())
     .then(data => {
-      console.log(data);
-      navigate('/');
+      if (data.success) navigate('/');
+      else if (data.message === 'User already exists')  setIsUsernameTaken(true);
+      else if (data.message === 'Both username and password fields are required') setFieldsFilled(false)
     })
     .catch((error) => {
       console.log('error', error);
+      setErrorMessage('An unexpected Error occured')
     })
   };
 
@@ -56,6 +60,11 @@ const SignUpForm = () => {
         <br></br>
         <input type='submit' value='Sign up' id='signUp-button' />
       </form>
+
+      {isUsernameTaken && <p>Username is already taken</p>}
+      {!fieldsFilled && <p>Please fill all fields</p>}
+
+
     </div>
   );
 };

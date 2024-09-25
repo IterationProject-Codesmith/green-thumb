@@ -1,16 +1,21 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setLoggedIn, setUser } from '../reducers/userSlice';
+import { useDispatch } from 'react-redux';
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCorrect, setPasswordCorrect] = useState(true);
   const [fieldsFilled, setFieldsFilled] = useState(true)
   const [errorMessage, setErrorMessage] = useState(false)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const formData = {username, password};
+ 
     // handle backend logic here
     fetch('api/login', {
       method: 'POST',
@@ -21,7 +26,12 @@ const LoginForm = () => {
     })
     .then(response => response.json())
     .then(data => {
-      if (data.success) navigate('/dashboard/search')
+      if (data.success) {
+        dispatch(setLoggedIn())
+        dispatch(setUser(username))
+        navigate('/dashboard/search')
+        // console.log(state.users.isLoggedIn)
+      }
       else if (data.message === 'Username or Password was incorrect') setPasswordCorrect(false)
       else if (data.message === 'both username and password fields are required') setFieldsFilled(false)
       else setErrorMessage(true);
@@ -41,9 +51,9 @@ const LoginForm = () => {
       >
         <label htmlFor='username'>Username:</label>
         <br></br>
-        <input
-          type='text'
-          id='username'
+        <input 
+          type='text' 
+          id='username' 
           name='username'
           value = {username}
           onChange = {(e) => setUsername(e.target.value)}
@@ -51,9 +61,10 @@ const LoginForm = () => {
         <br></br>
         <label htmlFor='password'>Password:</label>
         <br></br>
-        <input
-          type='password'
-          id='password'
+
+        <input 
+          type='password' 
+          id='password' 
           name='password'
           value = {password}
           onChange = {(e) => setPassword(e.target.value)}
@@ -72,3 +83,4 @@ const LoginForm = () => {
   );
 };
 export default LoginForm;
+
