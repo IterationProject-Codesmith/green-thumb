@@ -91,4 +91,5 @@ export const {
   removeFavorite,
   setNote,
 } = searchSlice.actions;
+
 export default searchSlice.reducer;
