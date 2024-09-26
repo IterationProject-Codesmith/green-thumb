@@ -62,6 +62,7 @@ const SignUpForm = () => {
         <input type='submit' value='Sign up' id='signUp-button' />
       </form>
 
+
       {isUsernameTaken && <p className="error">Username is already taken</p>}
       {!fieldsFilled && <p className="error">Please fill all fields</p>}
 

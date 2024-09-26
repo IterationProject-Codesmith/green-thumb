@@ -17,14 +17,18 @@ export const searchSlice = createSlice({
     setCurrentResults: (state, action) => {
       state.currentResults = action.payload;
     },
-    addCachedSearches: (state) => {
-      state.cachedSearches[state.searchBarValue] = state.currentResults;
+    addCachedSearches: (state, action) => {
+      const {searchBarValue, currentResults} = action.payload;
+      state.cachedSearches[searchBarValue] = currentResults;
     },
     addAllPreviousSearches: (state, action) => {
-      const resultSet = new Set(state.allPreviousSearches);
-      action.payload.forEach((el) => result.add(el));
-      const resultArr = [...resultSet];
-      state.allPreviousSearches.push(resultArr);
+      const resultSet = new Set(state.allPreviousSearches.map(item => item.common_name));
+      action.payload.forEach((el) => {
+        if (!resultSet.has(el.common_name)) {
+          resultSet.add(el.common_name); 
+          state.allPreviousSearches.push(el); 
+        }
+      });
     },
 
     //// Deprecated code due to lack of async thunk
