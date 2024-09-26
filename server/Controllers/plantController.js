@@ -3,7 +3,12 @@ const Plant = require ('../models/plantModel')
 
 const plantController = {};
 
-const apiKey = "sk-tRSR66f2e488db5c06983";
+// austin's key: sk-tRSR66f2e488db5c06983
+// aaron's key: sk-XZEX66f4aa4c01a1d7006
+
+// const apiKey = "sk-tRSR66f2e488db5c06983";
+const apiKey = "sk-XZEX66f4aa4c01a1d7006";
+
 
 plantController.fetchSpecies = async (req, res, next) => {
   const { search } = req.query;
@@ -24,7 +29,7 @@ plantController.addFavorites = async (req, res, next) => {
   const { userId, common_name, cycle, watering, sunlight, image_url, id } =
     req.body;
 
-  // console.log('reqbody', req.body)
+  console.log('reqbody ', req.body)
   try {
     //({userId},  )
     // const newPlant = {
@@ -39,7 +44,7 @@ plantController.addFavorites = async (req, res, next) => {
 
     // console.log('2')
     const newFav = await Plant.create({
-      username: userId, commonName: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url, plantId: id
+      username: userId, commonName: common_name, cycle: cycle, watering: watering, sunlight: sunlight, imageUrl: image_url, plantId: id
     });
     console.log(`newFav object: ${newFav}`);
     console.log("plantId", id);
@@ -74,6 +79,20 @@ plantController.seeFavorites = async (req, res, next) => {
   }
 };
 
-plantController.delFavorites = async (req, res, next) => {};
+plantController.delFavorites = async (req, res, next) => {
+  const { userId, id } = req.body;
+  //  userId: plantInfo.username,
+  //       id: plantInfo.plantId,
+  try {
+    const user = await Plant.findOneAndDelete({ username: userId, plantId: id });
+    if (user) {
+      console.log('deleted fav plant')
+      res.locals.favorites = user
+      return next()
+    }
+  } catch (error) {
+    return next(error)
+  }
+};
 
 module.exports = plantController;

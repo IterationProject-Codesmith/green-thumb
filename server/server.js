@@ -57,6 +57,11 @@ app.post('/api/plants/', plantController.addFavorites, (req, res) => {
 });
 
 
+app.delete('/api/plants/', plantController.delFavorites, (req, res) => {
+  res.status(200).json(res.locals.favorites)
+})
+
+
 //fetching all plants that make search querry
 app.get('/api/species', plantController.fetchSpecies, (req, res) => {
     // console.log('res locals plants: ', res.locals.plants)

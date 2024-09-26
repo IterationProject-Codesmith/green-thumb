@@ -1,5 +1,5 @@
 import React from "react";
-import { setFavoriteNote, saveComment } from "../reducers/userSlice";
+import { deleteFavorites, fetchFavorites } from "../reducers/favoriteSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUsername } from "../reducers/userSlice";
 
@@ -7,23 +7,35 @@ const FavoritePlantCard = (props) => {
   const dispatch = useDispatch();
   const username = useSelector(selectUsername);
 
-  const addComment = (e) => {
-    e.preventDefault();
-    const newComment = {
-      userId: username,
-      comment: comment,
-      id: id,
-    };
+  // const addComment = (e) => {
+  //   e.preventDefault();
+  //   const newComment = {
+  //     userId: username,
+  //     comment: comment,
+  //     id: id,
+  //   };
 
-    dispatch(setFavoriteNote({}));
-    dispatch(saveComment({}));
-    // console.log(plantandUserInfo)
-  };
+  //   dispatch(setFavoriteNote({}));
+  //   dispatch(saveComment({}));
+  //   // console.log(plantandUserInfo)
+  // };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    const info = {
+      username: username,
+      plantId: props.plantId
+    }
+    console.log(`props: ${JSON.stringify(props)}`)
+    console.log(info)
+    dispatch(deleteFavorites(info))
+    dispatch(fetchFavorites(username))
+  }
 
   return (
     <div className="favorite-plant-card">
-      {props.image_url ? (
-        <img src={props.image_url}></img>
+      {props.imageUrl ? (
+        <img classname='plant-photo' src={props.imageUrl}></img>
       ) : (
         <img alt={props.common_name}></img>
       )}
@@ -58,15 +70,7 @@ const FavoritePlantCard = (props) => {
           </p>
         ) : null}
       </div>
-      <input
-        type="text"
-        className="commentInput"
-        onChange={(e) => dispatch(commentInputUpdateOnChange(e.target.value))}
-      ></input>
-      <button onClick={addComment} id="commentButton">
-        Add custom notes
-      </button>
-      <button>
+      <button id = 'deletebutton' onClick={handleDelete}>
         Remove from favorites
       </button>
     </div>

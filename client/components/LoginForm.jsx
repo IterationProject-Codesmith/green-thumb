@@ -51,11 +51,11 @@ const LoginForm = () => {
       >
         <p>
         <label className='loginLabel' htmlFor='username'>Username:</label>
-
         <input
           type='text'
           id='username'
           name='username'
+          className='loginInput'
           value = {username}
           onChange = {(e) => setUsername(e.target.value)}
         ></input>
@@ -68,6 +68,7 @@ const LoginForm = () => {
           type='password'
           id='password'
           name='password'
+          className='loginInput'
           value = {password}
           onChange = {(e) => setPassword(e.target.value)}
         ></input>
@@ -78,11 +79,18 @@ const LoginForm = () => {
         value='Login'
         />
       </form>
-      {!passwordCorrect && <p>Username or password is incorrect</p>}
-      {!fieldsFilled && <p>Please fill all fields</p>}
-      {errorMessage && <p> Username or password is incorrect</p>}
+      {!passwordCorrect && <p className="error">Username or password is incorrect</p>}
+      {!fieldsFilled && <p className="error">Please fill all fields</p>}
+      {errorMessage && <p className="error"> Username or password is incorrect</p>}
     </div>
   );
 };
+
+
+// const styles = {
+//   loginContainer: {
+//     backgroundImage: 'url("Wallaby-Zoom-Background (1).jpg")'
+//   }
+// }
 export default LoginForm;
 

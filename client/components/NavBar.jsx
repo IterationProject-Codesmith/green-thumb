@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 const NavBar = () => {
   return (
     <div id='nav-bar'>
-      <div>NavBar</div>
-      <Link to='/dashboard/favorites'>Favorite Plants</Link>
-      <Link to='/dashboard/search'>Search Plants</Link>
+      <Link id='favButton' to='/dashboard/favorites'>Favorite Plants</Link>
+      <Link id='searchButton' to='/dashboard/search'>Search Plants</Link>
     </div>
   );
 };

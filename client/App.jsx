@@ -7,18 +7,20 @@ import SearchPage from './pages/SearchPage';
 import NavBar from './components/NavBar';
 import DashBoard from './containers/DashBoard';
 
+
 const App = () => {
   return (
     <BrowserRouter>
-      <section id=''>
-        <Link to='/'>Login</Link>
-        <Link to='/signUp'>Sign Up</Link>
-      </section>
+        <section id='loginSignup'>
+          <Link to='/' id='login'>Login</Link>
+          <Link to='/signUp' id='signup'>Sign Up</Link>
+        </section>
+
       {/* <Link to='/dashboard/search'>Dashboard Search</Link> */}
       <Routes>
-        <Route path='/' element={<LoginPage />}></Route>
-        <Route path='/signUp' element={<SignUpPage />}></Route>
-        <Route path='/dashboard/*' element={<DashBoard />}></Route>
+          <Route path='/' element={<LoginPage />}></Route>
+          <Route path='/signUp' element={<SignUpPage />}></Route>
+          <Route path='/dashboard/*' element={<DashBoard />}></Route>
       </Routes>
     </BrowserRouter>
   );
