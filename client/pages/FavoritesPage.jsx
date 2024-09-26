@@ -1,17 +1,20 @@
-import React, {useEffect} from 'react'
-import FavoritePlantsContainer from '../containers/FavoritePlantsContainer';
-import {selectUsername} from "../reducers/userSlice";
+import React, { useEffect } from "react";
+import FavoritePlantsContainer from "../containers/FavoritePlantsContainer";
+import { selectUsername } from "../reducers/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchFavorites } from '../reducers/favoriteSlice';
-
+import { fetchFavorites } from "../reducers/favoriteSlice";
 
 const FavoritesPage = () => {
   const username = useSelector(selectUsername);
+
   const dispatch = useDispatch();
 
   // on load - dispatch create async thunk
   useEffect(() => {
-    dispatch(fetchFavorites(username));
+    console.log(`in useEffect on favorites page`);
+    if (username) {
+      dispatch(fetchFavorites(username));
+    }
   }, []);
 
   return (
@@ -22,6 +25,6 @@ const FavoritesPage = () => {
       </section>
     </>
   );
-}
+};
 
-export default FavoritesPage
+export default FavoritesPage;
