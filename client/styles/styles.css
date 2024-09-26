@@ -1,47 +1,162 @@
-.searched-plant-card {
-  border: 1px solid black;
+.searched-plant-card,
+.favorite-plant-card {
+  border: 1px solid rgb(10, 10, 10);
   margin: 10px;
   overflow: hidden;
+  padding: 12px 5px 5px 5px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: rgb(239, 251, 239);
 }
 
 .searched-plant-card-content {
   padding: 15px;
 }
 
-#searched-plants-container {
+.plant-photo {
+  border: 1px solid rgb(10, 10, 10);
+  border-radius: 5px;
+  margin: auto;
+}
+
+#searched-plants-container,
+#favorite-plants-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minMax(300px, 1fr));
 }
 
-#favorite {
- margin: 10px;
- padding: 20px;
- background-color: rgb(176, 231, 176);
- border: none;
- border-radius: 5px;
- font-size: 14px;
+.loginInput {
+  width: 150px;
+  height: 20px;
 }
 
-#login-form {
+#login-button {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#login-form-container {
+  /* object-fit: contain; */
+  background-size: cover;
+  background-image: url("wallaby.png");
+  /* background-position: center; */
+  background-repeat: no-repeat;
+}
+#login-form,
+#signUp-form {
   display: flex;
   flex-direction: column;
-  background-color: rgb(250, 250, 250);
-  width: 300px;
+  /* background-color: 
+  ; */
+  width: 325px;
   flex: 0 1 auto;
-  padding: 10px;
-  border: 1px solid rgb(10, 10, 10);
+  padding: 20px;
   border-radius: 5px;
-  box-shadow: 3px 3px 2px rgb(220, 220, 220);
+  box-shadow: 3px 2px 3px 2px rgb(223, 214, 168);
 }
 
 body {
   display: flex;
   flex-direction: column;
+  background-color: rgb(169, 206, 169);
 }
 
 #contents {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
+
+.loginLabel,
+.signUpLabel {
+  padding-right: 10px;
+}
+
+#loginSignup {
+  display: flex;
+  font-size: 20px;
+  width: 30%;
+  justify-content: space-evenly;
+}
+
+#login,
+#signup {
+  border: 1px solid white;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  background-color: rgb(23, 76, 23);
+  padding: 8px 10px;
+}
+
+/* #signup {
+  border: 1px solid black;
+  border-radius: 5px;
+  text-decoration: none;
+}  */
+
+#favorite {
+  margin: 10px;
+  padding: 20px;
+  background-color: rgb(176, 231, 176);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#favorite:active {
+  border: 8px solid rgb(176, 231, 176);
+}
+#deletebutton {
+  margin: 10px;
+  cursor: pointer;
+  padding: 20px;
+  background-color: rgb(81, 101, 87);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+#deletebutton:active {
+  border: 8px solid rgb(81, 101, 87);
+}
+
+#loginHeader {
+  display: flex;
+  justify-content: center;
+  color: rgb(23, 76, 23);
+}
+
+.error {
+  color: red;
+}
+
+#nav-bar {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-top: 20px;
+  border-bottom: 1px solid white;
+}
+/* #dashboard {
+  background-color: grey;
+  border-bottom: 1px solid white;
+} */
+
+/* #password {
+  padding-left: 2px;
+} */
+
+#favButton,
+#searchButton {
+  border-radius: 5px 5px 0px 0px;
+  border: 1px solid rgb(white);
+  cursor: pointer;
+  background-color: rgb(23, 76, 23);
+  padding: 5px;
+  color: white;
+  text-decoration: none;
+}
+

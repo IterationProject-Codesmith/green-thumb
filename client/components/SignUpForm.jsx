@@ -38,12 +38,13 @@ const SignUpForm = () => {
         className='auth-form'
         onSubmit={(e) => handleSubmit(e)}
       >
-        <label htmlFor='username'>Username:</label>
+        <label className='signUpLabel' htmlFor='username'>Username:</label>
         <br></br>
         <input 
           type='text' 
           id='username' 
           name='username'
+          className='signupInput'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           ></input>
@@ -61,8 +62,9 @@ const SignUpForm = () => {
         <input type='submit' value='Sign up' id='signUp-button' />
       </form>
 
-      {isUsernameTaken && <p>Username is already taken</p>}
-      {!fieldsFilled && <p>Please fill all fields</p>}
+
+      {isUsernameTaken && <p className="error">Username is already taken</p>}
+      {!fieldsFilled && <p className="error">Please fill all fields</p>}
 
 
     </div>

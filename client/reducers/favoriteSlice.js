@@ -56,6 +56,26 @@ export const favoritesSlice = createSlice({
   }
 });
 
+export const deleteFavorites = createAsyncThunk(
+  `database/deletefavorite`,
+  async (plantInfo) => {
+    const details = await fetch(`/api/plants`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'DELETE',
+      body: JSON.stringify({
+        userId: plantInfo.username,
+        id: plantInfo.plantId,
+      }),
+    });
+    if (!details.ok) {
+      throw new Error('Cannot add plant to favorites');
+    }
+    // const favorite = await details.json();
+    console.log('success')
+  }
+);
 
 
 

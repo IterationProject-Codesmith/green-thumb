@@ -26,12 +26,13 @@ const SearchPage = () => {
     dispatch(setSearchValue(currentSearch));
 
     // check if exact search is in cachedSearches, or if search exactly matches the common name of one of the previous searches
-    if (cachedSearches[searchBarValue]) {
-      dispatch(setCurrentResults(cachedSearches[searchBarValue]));
+    if (cachedSearches[currentSearch]) {
+      dispatch(setCurrentResults(cachedSearches[currentSearch]));
       return;
     }
     for (let i = 0; i < allPreviousSearches.length; i++) {
-      if (searchBarValue === element.commonName) {
+      const element = allPreviousSearches[i];
+      if (currentSearch === element.common_name) {
         dispatch(setCurrentResults([element]));
         return;
       }
@@ -44,13 +45,13 @@ const SearchPage = () => {
       .then((data) => {
         // console.log(data);
         dispatch(setCurrentResults(data));
-        dispatch(addCachedSearches());
+        dispatch(addCachedSearches({searchBarValue: currentSearch, currentResults: data}));
+        dispatch(addAllPreviousSearches(data));
       });
   };
 
   return (
     <div>
-      SearchPage
       <form onSubmit={handleSubmit}>
         <label htmlFor='search'>Search:</label>
         <input
