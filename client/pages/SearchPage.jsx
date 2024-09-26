@@ -52,7 +52,6 @@ const SearchPage = () => {
 
   return (
     <div>
-      SearchPage
       <form onSubmit={handleSubmit}>
         <label htmlFor='search'>Search:</label>
         <input

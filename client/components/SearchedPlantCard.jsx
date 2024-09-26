@@ -33,7 +33,7 @@ const SearchedPlantCard = (props) => {
     <>
       <div className="searched-plant-card">
         {props.default_image ? (
-          <img src={props.default_image.small_url}></img>
+          <img className='plant-photo' src={props.default_image.small_url}></img>
         ) : (
           <img alt={props.common_name}></img>
         )}
