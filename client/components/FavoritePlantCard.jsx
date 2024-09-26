@@ -22,13 +22,13 @@ const FavoritePlantCard = (props) => {
 
   return (
     <div className="favorite-plant-card">
-      {props.default_image ? (
-        <img src={props.default_image.small_url}></img>
+      {props.image_url ? (
+        <img src={props.image_url}></img>
       ) : (
         <img alt={props.common_name}></img>
       )}
       <div className="favorite-plant-card-content">
-        <h3>{props.common_name}</h3>
+        <h3>{props.commonName}</h3>
         {/* <p>
         <em>Type: </em>
         {props.type}
@@ -65,6 +65,9 @@ const FavoritePlantCard = (props) => {
       ></input>
       <button onClick={addComment} id="commentButton">
         Add custom notes
+      </button>
+      <button>
+        Remove from favorites
       </button>
     </div>
   );

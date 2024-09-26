@@ -23,7 +23,6 @@ const FavoritePlantsContainer = () => {
   // }, [favoritePlants]);
   return (
     <>
-      <p>show something</p>
       <div id="favorite-plants-container">{favPlantsArr}</div>
     </>
   );
