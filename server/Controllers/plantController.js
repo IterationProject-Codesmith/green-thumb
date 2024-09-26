@@ -1,6 +1,9 @@
+const Favs = require("../models/favoritePlantModel");
+const Plant = require ('../models/plantModel')
+
 const plantController = {};
 
-const apiKey = 'sk-co6c66ee1213c52f86927';
+const apiKey = "sk-tRSR66f2e488db5c06983";
 
 plantController.fetchSpecies = async (req, res, next) => {
   const { search } = req.query;
@@ -15,5 +18,62 @@ plantController.fetchSpecies = async (req, res, next) => {
     return next(error);
   }
 };
+
+plantController.addFavorites = async (req, res, next) => {
+  // console.log('1')
+  const { userId, common_name, cycle, watering, sunlight, image_url, id } =
+    req.body;
+
+  // console.log('reqbody', req.body)
+  try {
+    //({userId},  )
+    // const newPlant = {
+    //   commonName: common_name,
+    //   cycle: cycle,
+    //   watering: watering,
+    //   sunlight: sunlight,
+    //   image_url: image_url,
+    //   plantId: id,
+    // };
+    // console.log("plantcard", newPlant);
+
+    // console.log('2')
+    const newFav = await Plant.create({
+      username: userId, commonName: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url, plantId: id
+    });
+    console.log(`newFav object: ${newFav}`);
+    console.log("plantId", id);
+    // const newFav = await Favs.findOneAndUpdate(
+    //   { username: userId },
+    //   { $push: { favPlantArray: newPlant } },
+    //   { new: true, upsert: true }
+    // );
+
+    res.locals.favorites = newFav;
+    console.log("favorites", res.locals.favorites);
+    return next();
+  } catch (error) {
+    console.log(`error in addFavorites middleware: ${error}`)
+    return next(error);
+  }
+};
+
+plantController.seeFavorites = async (req, res, next) => {
+  console.log("in seeFavorites controller", req.params);
+  const { username } = req.params;
+  try {
+    const user = await Plant.find({ username: username });
+    console.log("inseefavs", user);
+    if (user !== null) {
+      res.locals.favorites = user;
+      console.log("user", user);
+      return next();
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+
+plantController.delFavorites = async (req, res, next) => {};
 
 module.exports = plantController;

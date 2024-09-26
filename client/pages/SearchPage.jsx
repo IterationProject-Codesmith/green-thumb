@@ -42,7 +42,7 @@ const SearchPage = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         dispatch(setCurrentResults(data));
         dispatch(addCachedSearches());
       });
@@ -52,7 +52,7 @@ const SearchPage = () => {
     <div>
       SearchPage
       <form onSubmit={handleSubmit}>
-        <label for='search'>Search:</label>
+        <label htmlFor='search'>Search:</label>
         <input
           type='text'
           name='search'
