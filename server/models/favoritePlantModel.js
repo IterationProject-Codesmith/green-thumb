@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const favPlant = mongoose.Schema({
   username: { type: String },
-  favPlantArray: { type: Array },
-  plantId: { type: Number, required: true, unique: true },
-  commonName: { type: String, required: true },
+  favPlantArray: { type: Array, require: true },
+  plantId: { type: Number},
+  commonName: { type: String},
   watering: { type: String },
   // frontend should be aware that this is an object and will have to create a deep clone
   // wateringGeneralBenchMark: { type: Object},
@@ -21,4 +21,4 @@ const favPlant = mongoose.Schema({
 
 // You must export your model through module.exports
 
-module.exports = mongoose.model("plant", favPlant);
+module.exports = mongoose.model("favPlant", favPlant);
