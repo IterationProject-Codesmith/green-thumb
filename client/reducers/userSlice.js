@@ -77,7 +77,7 @@ export const saveFavoritetoDatabase = createAsyncThunk(
     if (!details.ok) {
       throw new Error('Cannot add plant to favorites');
     }
-    const favorite = await details.json();
+    // const favorite = await details.json();
     console.log('success')
   }
 );

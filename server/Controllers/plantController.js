@@ -34,12 +34,14 @@ plantController.addFavorites = async (req, res, next) => {
       image_url: image_url, 
       plantId: id
     }
+    console.log('plantcard', newPlant)
     
     // console.log('2')
       // const newFav = await Favs.create({
       //   userId: userId, commonName: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url, plantId: id
       // });
       // console.log(newFav);
+      console.log('plantId', id)
       const newFav = await Favs.findOneAndUpdate(
         { username: userId },
         { $push: { favPlantArray: newPlant } },
@@ -62,6 +64,7 @@ plantController.seeFavorites = async (req, res, next) => {
   const { username } = req.params;
   try{ 
     const user = await Favs.findOne({username})
+    console.log('inseefavs', user)
     if (user !== null) {
       res.locals.favorites = user.favPlantArray
       console.log('user',user.favPlantArray)
@@ -76,7 +79,6 @@ plantController.seeFavorites = async (req, res, next) => {
 
 
 plantController.delFavorites = async (req, res, next) => {
-
 }
 
 module.exports = plantController;
