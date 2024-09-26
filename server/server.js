@@ -46,20 +46,20 @@ app.post('/api/login', userController.verifyUser, (req, res) => {
 
 //fetch user's saved favorites
 
-app.get('/api/plants/:query', plantController.seeFavorites, (req, res) => {
-  res.sendStatus(200)
+app.get('/api/plants/:username', plantController.seeFavorites, (req, res) => {
+  res.status(200).json(res.locals.favorites)
 })
 
 
 //saving plant to user's favorite's     plantController.savePlant - make sure the  plant isn't saved userController.addPlant adding the plantid to the user's savedPlants attribute
 app.post('/api/plants/', plantController.addFavorites, (req, res) => {
-  res.sendStatus(200)
+  res.sendStatus(201)
 });
 
 
 //fetching all plants that make search querry
 app.get('/api/species', plantController.fetchSpecies, (req, res) => {
-    console.log('res locals plants: ', res.locals.plants)
+    // console.log('res locals plants: ', res.locals.plants)
   res.status(200).json(res.locals.plants);
 });
 

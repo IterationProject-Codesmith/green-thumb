@@ -78,7 +78,7 @@ export const saveFavoritetoDatabase = createAsyncThunk(
       throw new Error('Cannot add plant to favorites');
     }
     const favorite = await details.json();
-    return favorite;
+    console.log('success')
   }
 );
 //async thunk = a func that accepts an action type string and a payload creator cb(like a fetch request), and returns a promise
