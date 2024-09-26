@@ -19,17 +19,33 @@ plantController.fetchSpecies = async (req, res, next) => {
 };
 
 plantController.addFavorites = async (req, res, next) => {
-  console.log('1')
+  // console.log('1')
   const {  userId, common_name, cycle, watering, sunlight, image_url, id } = req.body;
 
-  console.log('reqbody', req.body)
+  // console.log('reqbody', req.body)
   try {
-    const user = await Favs.findOne({userId})
-    console.log('2')
-      const newFav = await Favs.create({
-        userId: userId, commonName: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url, plantId: id
-      });
-      console.log(newFav);
+
+    //({userId},  )
+    const newPlant = {
+      commonName: common_name, 
+      cycle: cycle, 
+      watering: watering, 
+      sunlight: sunlight, 
+      image_url: image_url, 
+      plantId: id
+    }
+    
+    // console.log('2')
+      // const newFav = await Favs.create({
+      //   userId: userId, commonName: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url, plantId: id
+      // });
+      // console.log(newFav);
+      const newFav = await Favs.findOneAndUpdate(
+        { username: userId },
+        { $push: { favPlantArray: newPlant } },
+        { new: true, upsert: true}
+      );
+
       res.locals.favorites = newFav
       console.log('favorites', res.locals.favorites)
       return next();
@@ -38,12 +54,17 @@ plantController.addFavorites = async (req, res, next) => {
   }
 };
 
+
+
+
 plantController.seeFavorites = async (req, res, next) => {
+  console.log('in seeFavorites controller',req.params)
   const { username } = req.params;
   try{ 
-    const user = await Favs.findOne(username)
+    const user = await Favs.findOne({username})
     if (user !== null) {
-      res.locals.favorites = user
+      res.locals.favorites = user.favPlantArray
+      console.log('user',user.favPlantArray)
       return next();
     }
   }

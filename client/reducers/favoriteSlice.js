@@ -8,13 +8,13 @@ const initialState = {
 
 
 export const fetchFavorites = createAsyncThunk(
-  'fetchingfavs',
-  "fetchingfavs",
+  'favorites/fetchingfavs',
   async (username) => {
+    console.log(`in async thunk`, username)
     const favorites = await fetch(`/api/plants/${username}`, {
       headers: { "content-Type": "application/json" },
     });
-
+    console.log('favorites', favorites)
     if (!favorites.ok) {
       throw new Error("cannot fetch favorites");
     }

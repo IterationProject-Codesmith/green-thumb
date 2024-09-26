@@ -1,7 +1,9 @@
-import React from 'react';
-import { setFavoriteNote, saveComment } from '../reducers/userSlice';
+import React from "react";
+import { setFavoriteNote, saveComment } from "../reducers/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUsername } from "../reducers/userSlice";
 
-const FavoritePlantCard = () => {
+const FavoritePlantCard = (props) => {
   const dispatch = useDispatch();
   const username = useSelector(selectUsername);
 
@@ -18,16 +20,14 @@ const FavoritePlantCard = () => {
     // console.log(plantandUserInfo)
   };
 
-
-
   return (
-    <div className='favorite-plant-card'>
+    <div className="favorite-plant-card">
       {props.default_image ? (
         <img src={props.default_image.small_url}></img>
       ) : (
         <img alt={props.common_name}></img>
       )}
-      <div className='favorite-plant-card-content'>
+      <div className="favorite-plant-card-content">
         <h3>{props.common_name}</h3>
         {/* <p>
         <em>Type: </em>
@@ -50,22 +50,24 @@ const FavoritePlantCard = () => {
             <em>Care Level: </em>
             {props.care_level}
           </p>
-        ) : (
-          <p>Care level info not available.</p>
-        )}
+        ) : null}
         {props.comment ? (
           <p>
             <em>User notes: </em>
             {props.comment}
           </p>
-        ) : (
-          <p>Care level info not available.</p>
-        )}
+        ) : null}
       </div>
-      <input type='text' className='commentInput' onChange={(e) => dispatch(commentInputUpdateOnChange(e.target.value))}></input>
-      <button onClick={addComment} id="commentButton">Add custom notes</button>
+      <input
+        type="text"
+        className="commentInput"
+        onChange={(e) => dispatch(commentInputUpdateOnChange(e.target.value))}
+      ></input>
+      <button onClick={addComment} id="commentButton">
+        Add custom notes
+      </button>
     </div>
-  )
+  );
 };
 
 export default FavoritePlantCard;
