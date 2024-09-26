@@ -62,11 +62,11 @@ plantController.seeFavorites = async (req, res, next) => {
   console.log("in seeFavorites controller", req.params);
   const { username } = req.params;
   try {
-    const user = await Favs.findOne({ username: username });
+    const user = await Plant.find({ username: username });
     console.log("inseefavs", user);
     if (user !== null) {
-      res.locals.favorites = user.favPlantArray;
-      console.log("user", user.favPlantArray);
+      res.locals.favorites = user;
+      console.log("user", user);
       return next();
     }
   } catch (error) {
