@@ -1,8 +1,9 @@
-const Favs = require ('../models/favoritePlantModel')
+const Favs = require("../models/favoritePlantModel");
+const Plant = require ('../models/plantModel')
 
 const plantController = {};
 
-const apiKey = 'sk-tRSR66f2e488db5c06983';
+const apiKey = "sk-tRSR66f2e488db5c06983";
 
 plantController.fetchSpecies = async (req, res, next) => {
   const { search } = req.query;
@@ -20,65 +21,59 @@ plantController.fetchSpecies = async (req, res, next) => {
 
 plantController.addFavorites = async (req, res, next) => {
   // console.log('1')
-  const {  userId, common_name, cycle, watering, sunlight, image_url, id } = req.body;
+  const { userId, common_name, cycle, watering, sunlight, image_url, id } =
+    req.body;
 
   // console.log('reqbody', req.body)
   try {
-
     //({userId},  )
-    const newPlant = {
-      commonName: common_name, 
-      cycle: cycle, 
-      watering: watering, 
-      sunlight: sunlight, 
-      image_url: image_url, 
-      plantId: id
-    }
-    console.log('plantcard', newPlant)
-    
-    // console.log('2')
-      // const newFav = await Favs.create({
-      //   userId: userId, commonName: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url, plantId: id
-      // });
-      // console.log(newFav);
-      console.log('plantId', id)
-      const newFav = await Favs.findOneAndUpdate(
-        { username: userId },
-        { $push: { favPlantArray: newPlant } },
-        { new: true, upsert: true}
-      );
+    // const newPlant = {
+    //   commonName: common_name,
+    //   cycle: cycle,
+    //   watering: watering,
+    //   sunlight: sunlight,
+    //   image_url: image_url,
+    //   plantId: id,
+    // };
+    // console.log("plantcard", newPlant);
 
-      res.locals.favorites = newFav
-      console.log('favorites', res.locals.favorites)
-      return next();
-  }catch (error){
-    return next(error)
+    // console.log('2')
+    const newFav = await Plant.create({
+      username: userId, commonName: common_name, cycle: cycle, watering: watering, sunlight: sunlight, image_url: image_url, plantId: id
+    });
+    console.log(`newFav object: ${newFav}`);
+    console.log("plantId", id);
+    // const newFav = await Favs.findOneAndUpdate(
+    //   { username: userId },
+    //   { $push: { favPlantArray: newPlant } },
+    //   { new: true, upsert: true }
+    // );
+
+    res.locals.favorites = newFav;
+    console.log("favorites", res.locals.favorites);
+    return next();
+  } catch (error) {
+    console.log(`error in addFavorites middleware: ${error}`)
+    return next(error);
   }
 };
-
-
-
 
 plantController.seeFavorites = async (req, res, next) => {
-  console.log('in seeFavorites controller',req.params)
+  console.log("in seeFavorites controller", req.params);
   const { username } = req.params;
-  try{ 
-    const user = await Favs.findOne({username})
-    console.log('inseefavs', user)
+  try {
+    const user = await Favs.findOne({ username: username });
+    console.log("inseefavs", user);
     if (user !== null) {
-      res.locals.favorites = user.favPlantArray
-      console.log('user',user.favPlantArray)
+      res.locals.favorites = user.favPlantArray;
+      console.log("user", user.favPlantArray);
       return next();
     }
-  }
-  catch (error){
-    return next(error)
+  } catch (error) {
+    return next(error);
   }
 };
-  
 
-
-plantController.delFavorites = async (req, res, next) => {
-}
+plantController.delFavorites = async (req, res, next) => {};
 
 module.exports = plantController;
